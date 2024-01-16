@@ -523,11 +523,6 @@ $jptk=$connect->query("select * from ptk where status_keaktifan_id=1")->num_rows
 																<?php } ?>
 															</select>
 														</div>
-														<div class="row">
-															<div class="col-md-12 text-end mt-3">
-																<button type="submit" class="btn btn-primary modal-confirm">Simpan</button>
-															</div>
-														</div>
 													</form>
 												</div>
 												<div class="tab-pane fade" id="portlet1-sk">
