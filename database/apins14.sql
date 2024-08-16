@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2024 at 05:45 AM
--- Server version: 10.4.13-MariaDB
--- PHP Version: 7.2.31
+-- Generation Time: Aug 16, 2024 at 03:43 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `apins`
+-- Database: `apins14`
 --
 
 -- --------------------------------------------------------
@@ -1171,6 +1172,29 @@ INSERT INTO `kecamatan` (`id`, `id_kabupaten`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kelompok_mapel`
+--
+
+CREATE TABLE `kelompok_mapel` (
+  `id_kelompok` int(11) NOT NULL,
+  `kurikulum` varchar(50) DEFAULT NULL,
+  `kelompok` varchar(50) NOT NULL,
+  `urut` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kelompok_mapel`
+--
+
+INSERT INTO `kelompok_mapel` (`id_kelompok`, `kurikulum`, `kelompok`, `urut`) VALUES
+(1, 'Kurikulum 2013', 'Kelompok A', 1),
+(2, 'Kurikulum 2013', 'Kelompok B', 2),
+(3, 'Kurikulum Merdeka', 'Wajib', 1),
+(4, 'Kurikulum Merdeka', 'Muatan Lokal', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kkm`
 --
 
@@ -1337,6 +1361,8 @@ INSERT INTO `loginattempts` (`IP`, `Attempts`, `LastLogin`, `Username`, `ID`) VA
 
 CREATE TABLE `mapel` (
   `id_mapel` int(11) NOT NULL,
+  `kd_kelompok` int(11) NOT NULL,
+  `urutan` int(11) NOT NULL,
   `kd_mapel` varchar(4) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1345,18 +1371,18 @@ CREATE TABLE `mapel` (
 -- Dumping data for table `mapel`
 --
 
-INSERT INTO `mapel` (`id_mapel`, `kd_mapel`, `nama_mapel`) VALUES
-(1, 'PAI', 'Pendidikan Agama dan Budi Pekerti'),
-(2, 'PKn', 'Pendidikan Pancasila dan Kewarganegaraan'),
-(3, 'BIN', 'Bahasa Indonesia'),
-(4, 'MTK', 'Matematika'),
-(5, 'IPA', 'Ilmu Pengetahuan Alam'),
-(6, 'IPS', 'Ilmu Pengetahuan Sosial'),
-(7, 'SBK', 'Seni Budaya dan Prakarya'),
-(8, 'PJK', 'Pendidikan Jasmani Olahraga dan Kesehatan'),
-(9, 'BID', 'Bahasa Indramayu'),
-(10, 'BIG', 'Bahasa Inggris'),
-(11, 'PBP', 'Pendidikan Budi Pekerti');
+INSERT INTO `mapel` (`id_mapel`, `kd_kelompok`, `urutan`, `kd_mapel`, `nama_mapel`) VALUES
+(1, 1, 1, 'PAI', 'Pendidikan Agama dan Budi Pekerti'),
+(2, 1, 2, 'PKn', 'Pendidikan Pancasila dan Kewarganegaraan'),
+(3, 1, 3, 'BIN', 'Bahasa Indonesia'),
+(4, 1, 4, 'MTK', 'Matematika'),
+(5, 1, 5, 'IPA', 'Ilmu Pengetahuan Alam'),
+(6, 1, 6, 'IPS', 'Ilmu Pengetahuan Sosial'),
+(7, 2, 2, 'SBK', 'Seni Budaya dan Prakarya'),
+(8, 2, 1, 'PJK', 'Pendidikan Jasmani Olahraga dan Kesehatan'),
+(9, 2, 4, 'BID', 'Bahasa Indramayu'),
+(10, 2, 5, 'BIG', 'Bahasa Inggris'),
+(11, 2, 3, 'PBP', 'Pendidikan Budi Pekerti');
 
 -- --------------------------------------------------------
 
@@ -1366,6 +1392,8 @@ INSERT INTO `mapel` (`id_mapel`, `kd_mapel`, `nama_mapel`) VALUES
 
 CREATE TABLE `mata_pelajaran` (
   `id_mapel` int(11) NOT NULL,
+  `kd_kelompok` int(11) NOT NULL,
+  `urutan` int(11) NOT NULL,
   `kd_mapel` varchar(4) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -1374,25 +1402,18 @@ CREATE TABLE `mata_pelajaran` (
 -- Dumping data for table `mata_pelajaran`
 --
 
-INSERT INTO `mata_pelajaran` (`id_mapel`, `kd_mapel`, `nama_mapel`) VALUES
-(1, 'PAI', 'Pendidikan Al-Islam'),
-(2, 'FI', 'Fiqih Ibadah'),
-(3, 'PAH', 'Pendidikan Al-Quran Hadits'),
-(4, 'PKM', 'Pendidikan Kemuhammadiyahan'),
-(5, 'PBA', 'Pendidikan Bahasa Arab'),
-(6, 'PPKn', 'Pendidikan Pancasila dan Kewarganegaraan'),
-(7, 'BIN', 'Bahasa Indonesia'),
-(8, 'MTK', 'Matematika'),
-(9, 'IPAS', 'Ilmu Pengetahuan Alam dan Sosial'),
-(10, 'SR', 'Seni Rupa'),
-(11, 'SM', 'Seni Musik'),
-(12, 'SL', 'Seni Lukis'),
-(13, 'PJOK', 'Pendidikan Jasmani, Olahraga, dan Kesehatan'),
-(14, 'BIG', 'Bahasa Inggris'),
-(15, 'BJW', 'Bahasa Jawa'),
-(16, 'TIK', 'Teknologi Informasi dan Komunikasi (TIK)'),
-(17, 'HW', 'Hizbul Wathan'),
-(18, 'TFD', 'Tahfidz');
+INSERT INTO `mata_pelajaran` (`id_mapel`, `kd_kelompok`, `urutan`, `kd_mapel`, `nama_mapel`) VALUES
+(1, 3, 1, 'PAI', 'Pendidikan Agama Islam dan Budi Pekerti'),
+(2, 3, 1, 'PP', 'Pendidikan Pancasila'),
+(3, 5, 1, 'BIN', 'Bahasa Indonesia'),
+(4, 3, 3, 'MTK', 'Matematika'),
+(5, 3, 4, 'IPAS', 'Ilmu Pengetahuan Alam dan Sosial'),
+(6, 3, 5, 'PJOK', 'Pendidikan Jasmani Olahraga dan Kesehatan'),
+(7, 4, 1, 'SR', 'Seni Rupa'),
+(8, 5, 2, 'BIG', 'Bahasa Inggris'),
+(9, 5, 3, 'BID', 'Bahasa Indramayu'),
+(11, 5, 4, 'BJW', 'Bahasa Jawa'),
+(13, 3, 3, 'MAT', 'MATEMATIKA TERAPAN');
 
 -- --------------------------------------------------------
 
@@ -1700,15 +1721,9 @@ CREATE TABLE `pemetaan` (
 CREATE TABLE `pemetaan_proyek` (
   `id_pemetaan` int(11) NOT NULL,
   `proyek` int(11) NOT NULL,
-  `dimensi` int(11) NOT NULL
+  `dimensi` int(11) NOT NULL,
+  `elemen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `pemetaan_proyek`
---
-
-INSERT INTO `pemetaan_proyek` (`id_pemetaan`, `proyek`, `dimensi`) VALUES
-(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2316,6 +2331,22 @@ CREATE TABLE `sikap` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `simpulan_proyek`
+--
+
+CREATE TABLE `simpulan_proyek` (
+  `id_penilaian` int(11) NOT NULL,
+  `peserta_didik_id` varchar(36) NOT NULL,
+  `kelas` varchar(2) NOT NULL,
+  `tapel` varchar(9) NOT NULL,
+  `smt` int(11) NOT NULL,
+  `proyek` int(11) NOT NULL,
+  `simpulan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `siswa`
 --
 
@@ -2330,7 +2361,7 @@ CREATE TABLE `siswa` (
   `tempat` varchar(50) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `nik` varchar(16) DEFAULT NULL,
-  `agama` int(11) NOT NULL DEFAULT '1',
+  `agama` int(11) NOT NULL DEFAULT 1,
   `pend_sebelum` varchar(100) NOT NULL,
   `alamat` varchar(350) DEFAULT NULL,
   `nama_ayah` varchar(150) DEFAULT NULL,
@@ -2349,7 +2380,7 @@ CREATE TABLE `siswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `siswa`
+-- Dumping data for table `siswa`
 --
 
 INSERT INTO `siswa` (`id`, `peserta_didik_id`, `nis`, `nisn`, `nama`, `nama_panggil`, `jk`, `tempat`, `tanggal`, `nik`, `agama`, `pend_sebelum`, `alamat`, `nama_ayah`, `nama_ibu`, `no_wa`, `pek_ayah`, `pek_ibu`, `jalan`, `kelurahan`, `kecamatan`, `kabupaten`, `provinsi`, `avatar`, `status`, `nasabah_id`) VALUES
@@ -2953,6 +2984,12 @@ ALTER TABLE `kecamatan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kelompok_mapel`
+--
+ALTER TABLE `kelompok_mapel`
+  ADD PRIMARY KEY (`id_kelompok`);
+
+--
 -- Indexes for table `kkm`
 --
 ALTER TABLE `kkm`
@@ -3267,6 +3304,12 @@ ALTER TABLE `sikap`
   ADD PRIMARY KEY (`id_sikap`);
 
 --
+-- Indexes for table `simpulan_proyek`
+--
+ALTER TABLE `simpulan_proyek`
+  ADD PRIMARY KEY (`id_penilaian`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -3542,6 +3585,12 @@ ALTER TABLE `keahlian`
   MODIFY `idke` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `kelompok_mapel`
+--
+ALTER TABLE `kelompok_mapel`
+  MODIFY `id_kelompok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `kkm`
 --
 ALTER TABLE `kkm`
@@ -3581,13 +3630,13 @@ ALTER TABLE `loginattempts`
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `mata_pelajaran`
 --
 ALTER TABLE `mata_pelajaran`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `mengajar`
@@ -3689,7 +3738,7 @@ ALTER TABLE `pemetaan`
 -- AUTO_INCREMENT for table `pemetaan_proyek`
 --
 ALTER TABLE `pemetaan_proyek`
-  MODIFY `id_pemetaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pemetaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pend_terakhir`
@@ -3804,6 +3853,12 @@ ALTER TABLE `sas`
 --
 ALTER TABLE `sikap`
   MODIFY `id_sikap` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `simpulan_proyek`
+--
+ALTER TABLE `simpulan_proyek`
+  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `siswa`
