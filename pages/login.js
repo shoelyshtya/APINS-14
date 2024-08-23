@@ -50,7 +50,7 @@ $(document).ready(function () {
 					$(".loader").hide();
                     if (html.success === true) {
 						toastr["success"]("Login Sukses <br/> Tunggu sebentar.... Anda akan dialihkan ke Halaman Admin");
-						$("#statusnya").html('<h4 class="mb-2">Login Sukses ✉️</h4><p class="text-start">Login berhasil... Anda akan dialihkan ke Halaman Utama.</p><a class="btn btn-primary w-100 my-3" href="./"> Beranda </a>');
+						$("#statusnya").html('<h4 class="mb-2">Login Sukses ✉️</h4><p class="text-start">Login berhasil... Anda akan dialihkan ke Halaman Utama.</p>');
 						setTimeout(function () {
 							location.reload();
 						},1500);
