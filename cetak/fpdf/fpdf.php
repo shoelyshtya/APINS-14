@@ -1036,12 +1036,14 @@ function Output($dest='', $name='', $isUTF8=false)
 
 protected function _dochecks()
 {
-	// Check mbstring overloading
-	if(ini_get('mbstring.func_overload') & 2)
-		$this->Error('mbstring overloading must be disabled');
-	// Ensure runtime magic quotes are disabled
-	if(get_magic_quotes_runtime())
-		@set_magic_quotes_runtime(0);
+	// Cek mbstring overloading (ini tetap diperlukan untuk memastikan FPDF bekerja dengan benar)
+	if(ini_get('mbstring.func_overload') & 2) 
+    	$this->Error('mbstring overloading must be disabled');
+	// Menghapus pengecekan magic quotes karena sudah deprecated di PHP 7.4 ke atas.
+	// Ini sudah tidak diperlukan lagi, jadi kita hapus pengecekan ini.
+	// Pengecekan ini bisa dihapus sepenuhnya
+	//if(get_magic_quotes_runtime())
+	//@set_magic_quotes_runtime(0);
 }
 
 protected function _checkoutput()
