@@ -5,7 +5,7 @@
 <strong>APINS</strong> adalah aplikasi pengolahan nilai untuk Sekolah Dasar yang memakai Kurikulum 2013 atau Kurikulum Merdeka.
 
 ## System Requirements
-- PHP version >= 7.2.x;
+- PHP version >= 7.2.x keatas sd 8.3.x
 - MySQL version 5.7.40
 - PHP curl enabled
 - PHP mbstring enabled
